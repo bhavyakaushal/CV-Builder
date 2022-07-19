@@ -1,0 +1,113 @@
+@import "./_variables";
+@import "./_functions";
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: $tuna;
+    text-decoration: underline;
+    // text-decoration: none;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    background-color: white;
+    width: 100%;
+}
+
+#root {
+    height: 100vh;
+}
+
+/* Typography */
+h1 {
+    font-weight: 600;
+    @include fluid-font(2.125rem, 2rem);
+    line-height: 44px;
+    color: black;
+}
+
+.L1 {
+    font-weight: 600;
+    @include fluid-font(0.975rem, 0.875rem);
+    line-height: 20px;
+    color: black !important;
+}
+
+.L2 {
+    font-weight: 500;
+    @include fluid-font(1.125rem, 1rem);
+    line-height: 17px;
+    color: $gray;
+}
+
+.L3 {
+    font-weight: 500;
+    @include fluid-font(1.275rem, 1.25rem);
+    line-height: 28px;
+}
+
+.L4 {
+    font-weight: 500;
+    @include fluid-font(0.975rem, 0.875rem);
+    line-height: 20px;
+    color: $tuna;
+}
+
+/* Text Color */
+.text-pink {
+    color: $pink !important;
+}
+
+/* Inputs */
+
+.full-input {
+    display: inline-block;
+    padding: 9px 12px;
+    border: 1px solid $border-grey;
+    border-radius: 12px;
+    min-width: 320px;
+    max-width: 385px;
+
+    .full-input-label {
+        display: flex;
+        align-items: center;
+    }
+
+    &:focus {
+        width: 100%;
+        border-color: darken($border-grey, 30%);
+        border-width: 1.9px;
+    }
+}
+
+// input[type="checkbox"] {
+//     height: 20px;
+//     width: 20px;
+//     background-color: $white;
+//     border: 1px solid $border-grey;
+//     border-radius: 3px;
+// }
+
+/* Utils */
+.error-field {
+    border-width: 1px;
+    border-style: solid;
+    border-color: $pink !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed !important;
+}
