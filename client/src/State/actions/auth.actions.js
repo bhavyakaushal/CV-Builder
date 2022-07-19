@@ -55,13 +55,12 @@ function login(password, email) {
 
         authService.login({ password: password, email: email }).then(
             (user) => {
+                console.log("user", user);
                 if (
-                    user.data.user &&
-                    typeof user.data.user === "object" &&
-                    user.data.token &&
-                    typeof user.data.token === "string"
+                    user.responseData &&
+                    typeof user.responseData === "object"
                 ) {
-                    dispatch(success(user.data));
+                    dispatch(success(user.responseData));
                 }
             },
             (error) => {

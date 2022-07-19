@@ -3,6 +3,5 @@ export declare class RegisterUserDto {
     contact: string;
     password: string;
     username: string;
-    phone: number;
     aboutme: string;
 }

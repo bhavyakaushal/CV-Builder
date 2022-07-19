@@ -11,14 +11,17 @@ export const authService = {
 
 function login(props) {
     return AxiosRequest({
-        method: "put",
-        url: `${config.host}/api/auth/login`,
+        method: "post",
+        url: `${config.host}/users/login`,
         data: props
     })
         .then((response) => response.data)
         .then((data) => {
-            if (data.data?.token) {
-                sessionStorage.setItem("user", JSON.stringify(data.data));
+            if (data.responseData) {
+                sessionStorage.setItem(
+                    "user",
+                    JSON.stringify(data.responseData)
+                );
             }
             return data;
         });
@@ -27,10 +30,10 @@ function login(props) {
 function register(props) {
     return AxiosRequest({
         method: "post",
-        url: `${config.host}/api/auth/register`,
+        url: `${config.host}/users`,
         data: props
     })
-        .then((response) => response.data)
+        .then((response) => response)
         .then((data) => {
             return data;
         });

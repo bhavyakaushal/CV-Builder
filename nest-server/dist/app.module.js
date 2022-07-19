@@ -16,7 +16,10 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/nest-CVBuilder')],
+        imports: [
+            users_module_1.UsersModule,
+            mongoose_1.MongooseModule.forRoot("mongodb://localhost:27017/CVBuilder"),
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
