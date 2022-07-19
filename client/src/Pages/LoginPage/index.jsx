@@ -3,6 +3,9 @@ import React from "react";
 /* Styles */
 import "./styles.scss";
 
+/* Global Components */
+import Button from "../../Components/Button";
+
 /* React Router DOM */
 import { Link, withRouter } from "react-router-dom";
 
@@ -27,6 +30,7 @@ function LoginPage() {
         const password_temp = passwordText.trim();
         const email_temp = emailText.trim();
         if (email_temp && password_temp) {
+            console.log(password_temp);
             dispatch(authActions.login(password_temp, email_temp));
         }
     };
@@ -37,7 +41,7 @@ function LoginPage() {
     return (
         <div id="login-page">
             <div className="login-container">
-                <div className="h1">Sign In</div>
+                <div className="h1 mb-5">Sign In</div>
                 <div className="mt-4 d-flex flex-column">
                     <div className="full-input mt-4">
                         <div className="full-input-label">
@@ -45,13 +49,13 @@ function LoginPage() {
                                 style={{ fontSize: "14px/1" }}
                                 class="fa fa-envelope"
                             ></i>
-                            <label className="L1 mb-0 ml-1" for="email">
+                            <label className="L1 mb-0 ml-2" for="email">
                                 Email address
                             </label>
                         </div>
 
                         <input
-                            className="L2 pl-3 mt-1"
+                            className="L2 pl-4 mt-1"
                             type="email"
                             name="email"
                             value={emailText}
@@ -66,12 +70,12 @@ function LoginPage() {
                                 style={{ fontSize: "14px/1" }}
                                 class="fa fa-key icon"
                             ></i>
-                            <label className="L1 mb-0 ml-1" htmlFor="password">
+                            <label className="L1 mb-0 ml-2" htmlFor="password">
                                 Password
                             </label>
                         </div>
                         <input
-                            className="L2 pl-3 mt-1"
+                            className="L2 pl-4 mt-1"
                             type="password"
                             name="password"
                             value={passwordText}
@@ -88,20 +92,21 @@ function LoginPage() {
                         Forgot Password?
                     </Link>
                 </div>
-                <div className="m-l-lg-140 mt-4 d-flex align-items-center">
-                    <button
-                        type="button"
-                        class="btn btn-primary"
+                <div className="m-l-lg-140 d-flex align-items-center">
+                    <Button
+                        className="mr-3"
                         onClick={submitForLogin}
                         onKeyPress={submitForLogin}
-                        disabled={!(passwordText && emailText)}
+                        disabled={!(emailText && passwordText)}
                     >
                         Sign In
-                    </button>
+                    </Button>
                 </div>
-                <span>
+                <span className="L2">
                     Don't have an account yet?
-                    <a href="/register">Sign Up here</a>
+                    <Link className="ml-1 footer-link" to="/register">
+                        Sign Up here
+                    </Link>
                 </span>
             </div>
         </div>

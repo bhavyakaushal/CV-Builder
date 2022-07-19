@@ -9,9 +9,13 @@
     width: 100vw;
 
     .login-container {
-        border: 1px solid black;
-        margin: 58px 108px;
+        padding-top: 36px;
+        padding-bottom: 40px;
+        background-color: $alabaster;
+        border-radius: 32px;
+        margin: auto 108px;
         width: 100%;
+        height: fit-content;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -30,6 +34,9 @@
         }
         label {
             display: block;
+        }
+        .footer-link {
+            color: $pink;
         }
     }
 }

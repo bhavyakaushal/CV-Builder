@@ -14,7 +14,7 @@ function Button({ className = "", disabled = false, children, ...props }) {
         <button
             {...props}
             disabled={disabled}
-            className={classnames("standard-button", className)}
+            className={classnames("L1 standard-button", className)}
         >
             {children}
         </button>

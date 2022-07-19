@@ -30,7 +30,7 @@ body {
 /* Typography */
 h1 {
     font-weight: 600;
-    @include fluid-font(2.125rem, 2rem);
+    @include fluid-font(2.15rem, 2rem);
     line-height: 44px;
     color: black;
 }
@@ -74,8 +74,8 @@ h1 {
     padding: 9px 12px;
     border: 1px solid $border-grey;
     border-radius: 12px;
-    min-width: 320px;
-    max-width: 385px;
+    min-width: 400px;
+    max-width: 420px;
 
     .full-input-label {
         display: flex;
@@ -88,14 +88,6 @@ h1 {
         border-width: 1.9px;
     }
 }
-
-// input[type="checkbox"] {
-//     height: 20px;
-//     width: 20px;
-//     background-color: $white;
-//     border: 1px solid $border-grey;
-//     border-radius: 3px;
-// }
 
 /* Utils */
 .error-field {

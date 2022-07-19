@@ -12,7 +12,7 @@ export const authService = {
 function login(props) {
     return AxiosRequest({
         method: "put",
-        url: `${config.host}/api/auth/login`,
+        url: `http://localhost:8080/api/auth/login`,
         data: props
     })
         .then((response) => response.data)
