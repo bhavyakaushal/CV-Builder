@@ -16,12 +16,22 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const register_user_dto_1 = require("./dto/register-user.dto");
+const sign_in_dto_1 = require("./dto/sign-in.dto");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
     async create(registerUserDto, response) {
         const res = await this.usersService.create(registerUserDto);
+        if (res) {
+            return response.status(200).json(Object.assign({}, res));
+        }
+        else {
+            throw new common_1.InternalServerErrorException();
+        }
+    }
+    async loginUser(signinUserDto, response) {
+        const res = await this.usersService.loginUser(signinUserDto);
         if (res) {
             return response.status(200).json(Object.assign({}, res));
         }
@@ -38,8 +48,16 @@ __decorate([
     __metadata("design:paramtypes", [register_user_dto_1.RegisterUserDto, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('/login'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [sign_in_dto_1.SigninUserDto, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "loginUser", null);
 UsersController = __decorate([
-    (0, common_1.Controller)('users'),
+    (0, common_1.Controller)("users"),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 exports.UsersController = UsersController;

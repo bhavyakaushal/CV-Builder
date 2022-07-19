@@ -17,11 +17,13 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const user_schema_1 = require("../schemas/user.schema");
+const bcrypt_1 = require("../utils/bcrypt");
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
     }
     async create(registerUserDto) {
+        registerUserDto.password = await (0, bcrypt_1.encodePassword)(registerUserDto.password);
         const saveUser = await new this.userModel(registerUserDto).save();
         if (saveUser) {
             return {
@@ -31,9 +33,39 @@ let UsersService = class UsersService {
         else {
             return {
                 success: false,
-                error: 'error in creating user',
+                error: "error in creating user",
             };
         }
+    }
+    async loginUser(signinUserDto) {
+        const email = signinUserDto.email;
+        const findUser = await this.userModel.findOne({ email });
+        if (!findUser) {
+            return {
+                success: false,
+                error: "User not exist",
+            };
+        }
+        const matchPassword = (0, bcrypt_1.comparePasswords)(signinUserDto.password, findUser.password);
+        if (!matchPassword) {
+            return {
+                success: false,
+                error: "Invalid user password",
+            };
+        }
+        const responseData = this.createResponseData(findUser);
+        return {
+            success: true,
+            responseData,
+        };
+    }
+    createResponseData(userDetails) {
+        return {
+            email: userDetails.email,
+            username: userDetails.username,
+            contact: userDetails.contact,
+            aboutme: userDetails.aboutme,
+        };
     }
 };
 UsersService = __decorate([
