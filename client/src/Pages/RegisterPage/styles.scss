@@ -1,14 +1,14 @@
 @import "../../scss/_variables";
 @import "../../scss/_functions";
 
-#login-page {
+#register-page {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     height: 100vh;
     width: 100vw;
 
-    .login-container {
+    .register-container {
         padding-top: 36px;
         padding-bottom: 40px;
         background-color: $alabaster;

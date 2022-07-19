@@ -19,7 +19,7 @@ const controllers = require("../controllers");
 app.post("/register", controllers.auth.registerUser);
 
 /* User login */
-app.get("/login", controllers.auth.login);
+app.put("/login", controllers.auth.login);
 
 // TODO: Reset Password
 /*

@@ -11,14 +11,12 @@ const initialState = user_data?.token
           loggingIn: false,
           loggedIn: true,
           registered: true,
-          registering: false,
           user: user_data
       }
     : {
           loggingIn: false,
           loggedIn: false,
           registered: false,
-          registering: false,
           user: null,
           error: null
       };
@@ -42,7 +40,6 @@ export function auth(state = initialState, action) {
         case authConstants.REGISTER_REQUEST:
             return {
                 registered: false,
-                registering: true,
                 loggedIn: false,
                 loggingIn: false,
                 user: null
@@ -52,7 +49,6 @@ export function auth(state = initialState, action) {
                 registered: true,
                 loggedIn: false,
                 loggingIn: false,
-                registering: false,
                 user: null
             };
         case authConstants.REGISTER_FAILURE:
@@ -60,7 +56,6 @@ export function auth(state = initialState, action) {
                 loggedIn: false,
                 loggingIn: false,
                 registered: false,
-                registering: false,
                 error: action.error
             };
         default:

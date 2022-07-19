@@ -27,14 +27,13 @@ function register(username, password, email) {
                     }
                 },
                 (error) => {
-                    const error_obj = error.response;
-                    let final_error_obj = {
-                        data: {
-                            msg: "Error while retrieving Data"
-                        }
-                    };
-                    if (error_obj.status !== 500) final_error_obj = error_obj;
-                    dispatch(failure(final_error_obj.data));
+                    let error_obj = error.response;
+                    if (error_obj?.status === 404 || error_obj === undefined) {
+                        const final_error_obj = {
+                            msg: "Something went wrong, please try again."
+                        };
+                        dispatch(failure(final_error_obj));
+                    }
                 }
             );
     };
@@ -66,14 +65,13 @@ function login(password, email) {
                 }
             },
             (error) => {
-                const error_obj = error.response;
-                let final_error_obj = {
-                    data: {
-                        msg: "Error while retrieving Data"
-                    }
-                };
-                if (error_obj.status !== 500) final_error_obj = error_obj;
-                dispatch(failure(final_error_obj.data));
+                let error_obj = error.response;
+                if (error_obj?.status === 404 || error_obj === undefined) {
+                    const final_error_obj = {
+                        msg: "Something went wrong, please try again."
+                    };
+                    dispatch(failure(final_error_obj));
+                }
             }
         );
     };

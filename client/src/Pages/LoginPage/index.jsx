@@ -10,7 +10,7 @@ import Button from "../../Components/Button";
 import { Link, withRouter } from "react-router-dom";
 
 /* Redux */
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../State/actions";
 
 function LoginPage() {
@@ -18,6 +18,7 @@ function LoginPage() {
     const [passwordText, setPasswordText] = React.useState("");
     const [emailText, setEmailText] = React.useState("");
 
+    const loginError_redux = useSelector((state) => state?.auth?.error);
     const handlePasswordChange = (e) => {
         setPasswordText(e.target.value);
     };
@@ -38,10 +39,14 @@ function LoginPage() {
     const onKeyDown = (e) => {
         if (e.key === "Enter") submitForLogin();
     };
+
     return (
         <div id="login-page">
             <div className="login-container">
                 <div className="h1 mb-5">Sign In</div>
+                {loginError_redux?.msg && (
+                    <p className="text-danger">{loginError_redux.msg}</p>
+                )}
                 <div className="mt-4 d-flex flex-column">
                     <div className="full-input mt-4">
                         <div className="full-input-label">
@@ -92,8 +97,10 @@ function LoginPage() {
                         Forgot Password?
                     </Link>
                 </div>
+
                 <div className="m-l-lg-140 d-flex align-items-center">
                     <Button
+                        style={{ margin: "57px 0" }}
                         className="mr-3"
                         onClick={submitForLogin}
                         onKeyPress={submitForLogin}
