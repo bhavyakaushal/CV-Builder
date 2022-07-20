@@ -3,6 +3,7 @@ import React from "react";
 /* Internal User */
 /* Pages */
 const HomePage = React.lazy(() => import("../Pages/HomePage"));
+const SkillsPage = React.lazy(() => import("../Pages/SkillsPage"));
 
 const ConfigRoutes = {
     pages: [
@@ -10,7 +11,15 @@ const ConfigRoutes = {
             name: "Home page",
             Page: HomePage,
             path: "/resume",
-            props: {}
+            props: { exact: true }
+        },
+        {
+            name: "Skills page",
+            Page: SkillsPage,
+            path: "/resume/skills",
+            props: {
+                exact: true
+            }
         }
         // {
         //     name: "DashboardPage",

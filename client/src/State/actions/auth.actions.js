@@ -4,9 +4,13 @@ import { authConstants } from "../constants";
 /* Services */
 import { authService } from "../services";
 
+/* For Axios Interceptor */
+import { Axios } from "../../Utils/axiosRequest";
+
 export const authActions = {
     login,
-    register
+    register,
+    logout
 };
 
 function register(username, password, email) {
@@ -89,3 +93,24 @@ function login(password, email) {
         return { type: authConstants.LOGIN_FAILURE, error };
     }
 }
+
+function logout() {
+    return (dispatch) => {
+        sessionStorage.clear();
+        dispatch({ type: authConstants.LOGOUT });
+    };
+}
+
+Axios.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        if (error.response && error.response.status === 403) {
+            sessionStorage.clear();
+            // window.location.href = "/";
+            authActions.logout();
+        }
+        return Promise.reject(error);
+    }
+);

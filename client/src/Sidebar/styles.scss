@@ -64,5 +64,25 @@ aside {
     .logout-container {
         margin-top: 26px;
         margin-bottom: 48px;
+        display: flex;
+        padding: 5px;
+        border-radius: 5px;
+        align-items: center;
+        cursor: pointer;
+
+        .logout-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 24px;
+            border-radius: 50px;
+            background-color: $storm-gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &:hover {
+            background-color: #f5f6f8;
+        }
     }
 }

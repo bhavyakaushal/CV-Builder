@@ -10,7 +10,7 @@ import "../Scss/theme.scss";
 import { useSelector } from "react-redux";
 
 /* Utils */
-import { history } from "../Utils/history";
+// import { history } from "../Utils/history";
 
 /* Lazy Loading Pages */
 const RegisterPage = React.lazy(() => import("../Pages/RegisterPage"));
@@ -19,6 +19,7 @@ const LoggedRoutes = React.lazy(() => import("../Pages/Routes"));
 
 function App() {
     const isAuthenticated = useSelector((state) => state.auth.loggedIn);
+    console.log(isAuthenticated);
 
     const PrivateRoute = ({ children, ...rest }) => {
         return (
@@ -66,16 +67,17 @@ function App() {
     };
     return (
         <div className="App">
-            <BrowserRouter history={history}>
+            <BrowserRouter>
                 <Switch>
-                    <PrivateRoute exact path="/resume">
+                    <PrivateRoute path="/resume">
                         <LoggedRoutes />
                     </PrivateRoute>
-                    <PublicRoute exact path="/">
-                        <LoginPage />
-                    </PublicRoute>
+
                     <PublicRoute exact path="/register">
                         <RegisterPage />
+                    </PublicRoute>
+                    <PublicRoute exact path="/">
+                        <LoginPage />
                     </PublicRoute>
                 </Switch>
             </BrowserRouter>

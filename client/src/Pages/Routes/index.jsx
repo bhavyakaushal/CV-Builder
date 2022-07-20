@@ -4,7 +4,7 @@ import React from "react";
 import "./styles.scss";
 
 /* React Router DOM */
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 
 /* Local Config */
 import ConfigRoutes from "../../Config/routingConfig";
@@ -13,6 +13,7 @@ import ConfigRoutes from "../../Config/routingConfig";
 import SideBar from "../../Sidebar";
 
 function Layout() {
+    console.log(ConfigRoutes);
     return (
         <>
             <div className="main__container">
@@ -20,21 +21,17 @@ function Layout() {
                     <SideBar />
                     <Switch>
                         {ConfigRoutes?.pages?.map(
-                            ({ name, Page, path, ...props }) => {
+                            ({ name, Page, path, props }) => {
+                                console.log(name, props, path);
                                 return (
-                                    <Route
-                                        {...props}
-                                        key={name}
-                                        exact={true}
-                                        path={path}
-                                    >
+                                    <Route {...props} key={name} path={path}>
                                         <Page />
                                     </Route>
                                 );
                             }
                         )}
 
-                        {/* <Redirect to="/login" /> */}
+                        {/* <Redirect to="/resume" /> */}
                     </Switch>
                 </div>
             </div>

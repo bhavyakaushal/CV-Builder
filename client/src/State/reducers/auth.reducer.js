@@ -2,24 +2,17 @@
 import { authConstants } from "../constants";
 
 /* Utils */
-import { getSessionFromStorage } from "../../Utils";
+// import { getSessionFromStorage } from "../../Utils";
 
-let user_data = getSessionFromStorage();
+// let user_data = getSessionFromStorage();
 
-const initialState = user_data?.token
-    ? {
-          loggingIn: false,
-          loggedIn: true,
-          registered: true,
-          user: user_data
-      }
-    : {
-          loggingIn: false,
-          loggedIn: false,
-          registered: false,
-          user: null,
-          error: null
-      };
+const initialState = {
+    loggingIn: false,
+    loggedIn: false,
+    registered: false,
+    user: null,
+    error: null
+};
 
 export function auth(state = initialState, action) {
     switch (action.type) {
@@ -57,6 +50,11 @@ export function auth(state = initialState, action) {
                 loggingIn: false,
                 registered: false,
                 error: action.error
+            };
+        case authConstants.LOGOUT:
+            return {
+                loggedIn: false,
+                error: null
             };
         default:
             return state;
