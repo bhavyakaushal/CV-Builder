@@ -18,12 +18,13 @@ function register(username, password, email) {
             .then(
                 (user) => {
                     if (
-                        user.data.user &&
-                        typeof user.data.user === "object" &&
-                        user.data.token &&
-                        typeof user.data.token === "string"
+                        user.success &&
+                        user.responseData &&
+                        typeof user.responseData === "object"
                     ) {
-                        dispatch(success(user.data));
+                        dispatch(success(user.responseData));
+                    } else {
+                        dispatch(failure(user.error));
                     }
                 },
                 (error) => {
@@ -57,10 +58,13 @@ function login(password, email) {
             (user) => {
                 console.log("user", user);
                 if (
+                    user.success &&
                     user.responseData &&
                     typeof user.responseData === "object"
                 ) {
                     dispatch(success(user.responseData));
+                } else {
+                    dispatch(failure(user.error));
                 }
             },
             (error) => {

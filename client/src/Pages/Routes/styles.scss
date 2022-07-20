@@ -1,0 +1,20 @@
+@import "../../scss/_variables";
+
+.main__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    border: 1px solid black;
+
+    .main__container_content {
+        margin: 20px 40px;
+        padding: 20px 28px;
+        border-radius: 32px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        background-color: $alabaster;
+    }
+}

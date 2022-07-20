@@ -17,12 +17,12 @@ function login(props) {
     })
         .then((response) => response.data)
         .then((data) => {
-            if (data.responseData) {
-                sessionStorage.setItem(
-                    "user",
-                    JSON.stringify(data.responseData)
-                );
-            }
+            // if (data.responseData) {
+            //     sessionStorage.setItem(
+            //         "user",
+            //         JSON.stringify(data.responseData)
+            //     );
+            // }
             return data;
         });
 }

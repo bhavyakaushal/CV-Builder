@@ -1,0 +1,68 @@
+@import "../Scss/variables";
+@import "../Scss/functions";
+
+aside {
+    position: relative;
+    width: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    background-color: white;
+    border-radius: 16px;
+    align-items: center;
+
+    .aside-group-tabs {
+        border-bottom: 2px solid #eef1f3;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        .aside-tab {
+            display: flex;
+            align-items: center;
+            width: 268px;
+            border-radius: 8px;
+            padding-top: 7px;
+            cursor: pointer;
+
+            padding-bottom: 7px;
+            text-decoration: none;
+
+            .tab-icon {
+                width: 24px;
+                height: 24px;
+                margin-left: 70px;
+                margin-right: 24px;
+                border-radius: 50px;
+                background-color: $storm-gray;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .aside-tab a:link,
+        a:hover {
+            color: $pink;
+        }
+        .active-tab {
+            background-color: #f8e1e7 !important;
+            color: $pink !important;
+            .tab-icon {
+                background-color: $pink !important;
+            }
+        }
+    }
+    .logout-container {
+        margin-top: 26px;
+        margin-bottom: 48px;
+    }
+}
