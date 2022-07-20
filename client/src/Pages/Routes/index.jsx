@@ -31,7 +31,7 @@ function Layout() {
                             }
                         )}
 
-                        {/* <Redirect to="/resume" /> */}
+                        <Redirect to="/resume" />
                     </Switch>
                 </div>
             </div>
