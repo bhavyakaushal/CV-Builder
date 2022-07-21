@@ -27,4 +27,21 @@
             box-shadow: none;
         }
     }
+
+    .cards-container {
+        overflow-y: auto;
+        column-count: 2;
+        margin-top: 60px;
+    }
+
+    .cards-container .card {
+        // to avoid column breaks
+        -webkit-column-break-inside: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .cards-container div:first-child {
+        margin: 0;
+    }
 }
