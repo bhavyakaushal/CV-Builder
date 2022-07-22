@@ -9,7 +9,9 @@ export const userService = {
     getUserProfile,
     addNewSkill,
     getUserSkills,
-    searchUserSkill
+    searchUserSkill,
+    addNewProjects,
+    getUserProjects
 };
 
 async function updateUserProfile(props) {
@@ -55,6 +57,25 @@ async function searchUserSkill(props) {
         method: "post",
         url: `${config.host}/users/search-skill`,
         data: props
+    });
+    const data = response.data;
+    return data;
+}
+
+async function addNewProjects(props) {
+    const response = await AxiosRequest({
+        method: "post",
+        url: `${config.host}/users/project`,
+        data: props.project
+    });
+    const data = response.data;
+    return data;
+}
+
+async function getUserProjects(props) {
+    const response = await AxiosRequest({
+        method: "get",
+        url: `${config.host}/users/project/${props.userId}`
     });
     const data = response.data;
     return data;

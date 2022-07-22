@@ -1,0 +1,50 @@
+@import "../../../../Scss/variables";
+
+.card {
+    // min-width: 100px;
+    // -webkit-filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.12));
+    // filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.12));
+    border-radius: 3px;
+
+    color: #939499;
+
+    padding: 6px 12px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    background-color: #f5f6f8;
+    border: none;
+
+    .card_header {
+        color: #323338;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 27px;
+
+        img {
+            cursor: unset;
+        }
+    }
+
+    .card_desc {
+        color: #323338;
+    }
+
+    .skills-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        flex-shrink: 1;
+        span {
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid $pink;
+            padding: 6px 23px;
+            color: $pink;
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 14px;
+        }
+    }
+}

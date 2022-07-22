@@ -1,9 +1,9 @@
 import React from "react";
 
 /* React Router DOM */
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
-// /* Images/SVG */
+/* Images/SVG */
 import UserSVG from "../Assets/SVG/User.svg";
 import StatsSVG from "../Assets/SVG/stats.svg";
 import ProjectsSVG from "../Assets/SVG/projects.svg";

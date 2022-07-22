@@ -33,7 +33,7 @@ function SkillsPage() {
 
     const user_data_redux = useSelector((state) => state?.user);
     const login_user_data_redux = useSelector((state) => state?.auth?.user);
-    const skill_added_redux = useSelector((state) => state?.user?.added);
+    const skill_added_redux = useSelector((state) => state?.user?.skillAdded);
 
     const handleClickOpen = () => {
         setDialogOpen(true);

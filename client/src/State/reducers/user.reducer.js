@@ -4,8 +4,10 @@ import { userConstants } from "../constants";
 const initialState = {
     user: null,
     skills: null,
+    projects: null,
     updated: false,
-    added: false,
+    skillAdded: false,
+    projectAdded: false,
     error: null
 };
 
@@ -19,30 +21,48 @@ export function user(state = initialState, action) {
         case userConstants.ACTION_FAILURE:
             return {
                 updated: false,
-                added: false,
+                skillAdded: false,
+                projectAdded: false,
                 error: action.error
             };
         case userConstants.GET_PROFILE_SUCCESS:
             return {
-                added: false,
+                skillAdded: false,
+                projectAdded: false,
                 user: action.data
             };
         case userConstants.ADD_NEW_SKILL:
             return {
                 ...state,
-                added: true
+                skillAdded: true,
+                projectAdded: false
             };
         case userConstants.GET_USER_SKILLS:
             return {
                 ...state,
                 skills: action.data,
-                added: false
+                skillAdded: false,
+                projectAdded: false
             };
         case userConstants.SEARCH_USER_SKILL:
             return {
                 ...state,
                 skills: action.data,
-                added: false
+                skillAdded: false,
+                projectAdded: false
+            };
+        case userConstants.ADD_NEW_PROJECT:
+            return {
+                ...state,
+                skillAdded: false,
+                projectAdded: true
+            };
+        case userConstants.GET_USER_PROJECTS:
+            return {
+                ...state,
+                projects: action.data,
+                projectAdded: false,
+                skillAdded: false
             };
         default:
             return state;
