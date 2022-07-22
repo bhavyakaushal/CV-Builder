@@ -60,7 +60,7 @@ function SideBar() {
                     My Projects
                 </NavLink>
                 <NavLink
-                    to="/resume/download"
+                    to="/resume/report"
                     className="S-B3 aside-tab mb-2"
                     activeClassName="active-tab"
                 >

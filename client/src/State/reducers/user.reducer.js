@@ -8,7 +8,8 @@ const initialState = {
     updated: false,
     skillAdded: false,
     projectAdded: false,
-    error: null
+    error: null,
+    finalData: null
 };
 
 export function user(state = initialState, action) {
@@ -61,6 +62,13 @@ export function user(state = initialState, action) {
             return {
                 ...state,
                 projects: action.data,
+                projectAdded: false,
+                skillAdded: false
+            };
+        case userConstants.GET_FINAL_DATA:
+            return {
+                ...state,
+                finalData: action.data,
                 projectAdded: false,
                 skillAdded: false
             };

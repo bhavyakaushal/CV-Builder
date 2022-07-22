@@ -11,7 +11,8 @@ export const userActions = {
     getUserSkills,
     searchUserSkill,
     addNewProjects,
-    getUserProjects
+    getUserProjects,
+    getSkillsAndProjects
 };
 
 function getUserProfile(userId) {
@@ -270,6 +271,57 @@ function addNewProjects(title, description, userId, skillName) {
 
     function success(data) {
         return { type: userConstants.ADD_NEW_PROJECT, data };
+    }
+    function failure(error) {
+        return { type: userConstants.ACTION_FAILURE, error };
+    }
+}
+
+function getSkillsAndProjects(userId) {
+    return (dispatch) => {
+        userService
+            .getUserSkills({
+                userId: userId
+            })
+            .then(
+                (user) => {
+                    if (
+                        user.success &&
+                        user.userSkills &&
+                        typeof user.userSkills === "object"
+                    ) {
+                        let skills = user.userSkills;
+                        userService
+                            .getUserProjects({ userId: userId })
+                            .then((user) => {
+                                if (
+                                    user.success &&
+                                    user.userProjects &&
+                                    typeof user.userProjects === "object"
+                                ) {
+                                    let projects = user["userProjects"];
+                                    let final = { skills, projects };
+                                    dispatch(success(final));
+                                }
+                            });
+                    } else {
+                        dispatch(failure(user.error));
+                    }
+                },
+                (error) => {
+                    let error_obj = error.response;
+                    if (error_obj?.status === 404 || error_obj === undefined) {
+                        const final_error_obj = {
+                            msg: "Something went wrong, please try again."
+                        };
+                        dispatch(failure(final_error_obj));
+                    }
+                }
+            );
+    };
+
+    function success(data) {
+        return { type: userConstants.GET_FINAL_DATA, data };
     }
     function failure(error) {
         return { type: userConstants.ACTION_FAILURE, error };
