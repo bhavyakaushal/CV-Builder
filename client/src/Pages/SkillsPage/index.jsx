@@ -67,11 +67,24 @@ function SkillsPage() {
 
     const getOptionsdata = () => {
         let data = [];
-        for (var i = 0; i < 5; i++) {
-            data.push({
-                label: user_data_redux?.finalData?.skills[i].skill,
-                value: user_data_redux?.finalData?.skills[i].skill
-            });
+        if (user_data_redux.skills) {
+            for (let i = 0; i < user_data_redux?.skills.length && i < 5; i++) {
+                data.push({
+                    label: user_data_redux?.skills[i]?.skill,
+                    value: user_data_redux?.skills[i]?.skill
+                });
+            }
+        } else {
+            for (
+                let i = 0;
+                i < user_data_redux?.finalData?.skills.length && i < 5;
+                i++
+            ) {
+                data.push({
+                    label: user_data_redux?.finalData?.skills[i]?.skill,
+                    value: user_data_redux?.finalData?.skills[i]?.skill
+                });
+            }
         }
         return data;
     };
@@ -80,8 +93,7 @@ function SkillsPage() {
     React.useEffect(() => {
         dispatch(userActions.getUserSkills(login_user_data_redux.id));
         dispatch(userActions.getSkillsAndProjects(login_user_data_redux.id));
-        if (user_data_redux?.finalData?.skills)
-            setSearchOptions(getOptionsdata());
+        if (user_data_redux?.finalData) setSearchOptions(getOptionsdata());
         setSelectedOption(null);
         setRating(0);
         setSkillText("");
@@ -91,8 +103,7 @@ function SkillsPage() {
 
     React.useEffect(() => {
         dispatch(userActions.getSkillsAndProjects(login_user_data_redux.id));
-        if (user_data_redux?.finalData?.skills)
-            setSearchOptions(getOptionsdata());
+        setSearchOptions(getOptionsdata());
         setSelectedOption(null);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

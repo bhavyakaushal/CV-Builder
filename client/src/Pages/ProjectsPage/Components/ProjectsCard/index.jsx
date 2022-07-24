@@ -12,7 +12,9 @@ function ProjectsCard({ id, title, description, skillId }) {
                 <div className="skills-container pr-2">
                     {Array.isArray(skillId) &&
                         skillId.map((temp_skill, i) => {
-                            return <span>{temp_skill.skill}</span>;
+                            return (
+                                <span className="mr-2">{temp_skill.skill}</span>
+                            );
                         })}
                 </div>
             )}

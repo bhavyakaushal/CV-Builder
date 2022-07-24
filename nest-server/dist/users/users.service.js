@@ -80,7 +80,7 @@ let UsersService = class UsersService {
                     error: "Invalid user password",
                 };
             }
-            const responseData = this.createResponseData(findUser);
+            const responseData = this.createUserLoginResponseData(findUser);
             return {
                 success: true,
                 responseData,
@@ -123,7 +123,8 @@ let UsersService = class UsersService {
                     error: "error in saving user's skills",
                 };
             }
-            const addSkillToUser = await this.userModel.updateOne({ _id: addUserSkillDto.userId }, { $push: { skillId: saveSkill.id } });
+            const updateUserWithSkillQuery = this.createUpdateUserWithSkillQueryObject(addUserSkillDto, saveSkill.id);
+            const addSkillToUser = await this.userModel.updateOne(updateUserWithSkillQuery);
             if (!addSkillToUser) {
                 return {
                     success: false,
@@ -191,7 +192,8 @@ let UsersService = class UsersService {
                     error: "error in saving user's project",
                 };
             }
-            const addProjectToUser = await this.userModel.updateOne({ _id: addUserProjectDto.userId }, { $push: { projectId: saveProject.id } });
+            const updateUserWithProjectQuery = this.createUpdateUserWithProjectQueryObject(addUserProjectDto, saveProject.id);
+            const addProjectToUser = await this.userModel.updateOne(updateUserWithProjectQuery);
             if (!addProjectToUser) {
                 return {
                     success: false,
@@ -276,7 +278,7 @@ let UsersService = class UsersService {
             title: searchUserProjectByTitleDto.projectTitle,
         };
     }
-    createResponseData(userDetails) {
+    createUserLoginResponseData(userDetails) {
         return {
             id: userDetails._id,
             email: userDetails.email,
@@ -291,6 +293,18 @@ let UsersService = class UsersService {
             description: addUserProjectDto.description,
             userId: addUserProjectDto.userId,
             skillId: skillIdArray,
+        };
+    }
+    createUpdateUserWithProjectQueryObject(addUserProjectDto, saveProjectId) {
+        return {
+            _id: addUserProjectDto.userId,
+            $push: { projectId: saveProjectId },
+        };
+    }
+    createUpdateUserWithSkillQueryObject(addUserSkillDto, skillId) {
+        return {
+            _id: addUserSkillDto.userId,
+            $push: { skillId: skillId },
         };
     }
 };

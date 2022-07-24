@@ -31,7 +31,6 @@ function LoginPage() {
         const password_temp = passwordText.trim();
         const email_temp = emailText.trim();
         if (email_temp && password_temp) {
-            console.log(password_temp);
             dispatch(authActions.login(password_temp, email_temp));
         }
     };
@@ -91,7 +90,7 @@ function LoginPage() {
                         />
                     </div>
                     <Link
-                        to="/login"
+                        to="/"
                         className="mt-2 d-flex align-items-center justify-content-end"
                     >
                         Forgot Password?

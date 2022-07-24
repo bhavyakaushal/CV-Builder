@@ -87,7 +87,6 @@ function HomePage() {
 
     const getAvatarName = () => {
         let name = usernameText.split(" ");
-        console.log(name);
         if (name.length === 1) {
             return name[0][0].toUpperCase();
         } else {
@@ -96,7 +95,6 @@ function HomePage() {
     };
 
     React.useEffect(() => {
-        console.log("User id:", login_user_data_redux.id);
         setEditable(true);
         if (login_user_data_redux.id) {
             dispatch(userActions.getUserProfile(login_user_data_redux.id));

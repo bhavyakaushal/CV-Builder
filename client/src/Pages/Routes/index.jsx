@@ -13,7 +13,6 @@ import ConfigRoutes from "../../Config/routingConfig";
 import SideBar from "../../Sidebar";
 
 function Layout() {
-    console.log(ConfigRoutes);
     return (
         <>
             <div className="main__container">
@@ -22,7 +21,6 @@ function Layout() {
                     <Switch>
                         {ConfigRoutes?.pages?.map(
                             ({ name, Page, path, props }) => {
-                                console.log(name, props, path);
                                 return (
                                     <Route {...props} key={name} path={path}>
                                         <Page />

@@ -30,7 +30,7 @@ function login(props) {
 function register(props) {
     return AxiosRequest({
         method: "post",
-        url: `${config.host}/users`,
+        url: `${config.host}/users/register`,
         data: props
     })
         .then((response) => response)

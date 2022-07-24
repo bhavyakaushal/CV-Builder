@@ -120,7 +120,6 @@ const DialogBox = React.memo(
         ...props
     }) => {
         const classes = useStyles();
-        console.log("submit - ", submitDisabled);
         const handleOnSubmitFunc = (e) => {
             if (e.type === "click" || e.code === "Enter") {
                 onSubmitFunc();

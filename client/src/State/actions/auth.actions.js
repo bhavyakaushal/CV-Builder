@@ -60,7 +60,6 @@ function login(password, email) {
 
         authService.login({ password: password, email: email }).then(
             (user) => {
-                console.log("user", user);
                 if (
                     user.success &&
                     user.responseData &&

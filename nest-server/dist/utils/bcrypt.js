@@ -9,7 +9,6 @@ async function encodePassword(rawPassword) {
 }
 exports.encodePassword = encodePassword;
 function comparePasswords(rawPassword, hash) {
-    console.log(bcrypt.compareSync(rawPassword, hash));
     return bcrypt.compareSync(rawPassword, hash);
 }
 exports.comparePasswords = comparePasswords;

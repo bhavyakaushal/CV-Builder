@@ -1,12 +1,12 @@
 import { Model } from "mongoose";
-import { User, UserDocument } from "src/schemas/user.schema";
+import { User, UserDocument } from "../schemas/user.schema";
 import { RegisterUserDto } from "./dto/register-user.dto";
 import { SigninUserDto } from "./dto/sign-in.dto";
 import { UserResponseObject } from "./interfaces/user.interface";
 import { AddUserSkillDto } from "./dto/add-skill.dto";
-import { Skill, SkillDocument } from "src/schemas/skill.schema";
+import { Skill, SkillDocument } from "../schemas/skill.schema";
 import { AddUserProjectDto } from "./dto/add-project.dto";
-import { Project, ProjectDocument } from "src/schemas/project.schema";
+import { Project, ProjectDocument } from "../schemas/project.schema";
 import { SearchUserSkillByNameDto } from "./dto/search-skill.dto";
 import { SearchUserProjectByTitleDto } from "./dto/search-project.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -36,7 +36,7 @@ export declare class UsersService {
     } | {
         success: boolean;
         responseData: {
-            id: import("mongoose").Schema.Types.ObjectId;
+            id: Object;
             email: string;
             username: string;
             contact: number;
@@ -121,8 +121,8 @@ export declare class UsersService {
         userId: string;
         title: string;
     };
-    createResponseData(userDetails: UserResponseObject): {
-        id: import("mongoose").Schema.Types.ObjectId;
+    createUserLoginResponseData(userDetails: UserResponseObject): {
+        id: Object;
         email: string;
         username: string;
         contact: number;
@@ -130,8 +130,20 @@ export declare class UsersService {
     };
     createProjectSaveQueryObject(addUserProjectDto: AddUserProjectDto, skillIdArray: any): {
         title: string;
-        description: number;
+        description: string;
         userId: string;
         skillId: any;
+    };
+    createUpdateUserWithProjectQueryObject(addUserProjectDto: AddUserProjectDto, saveProjectId: string): {
+        _id: string;
+        $push: {
+            projectId: string;
+        };
+    };
+    createUpdateUserWithSkillQueryObject(addUserSkillDto: AddUserSkillDto, skillId: string): {
+        _id: string;
+        $push: {
+            skillId: string;
+        };
     };
 }

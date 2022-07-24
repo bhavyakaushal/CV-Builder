@@ -16,7 +16,6 @@ const LoggedRoutes = React.lazy(() => import("../Pages/Routes"));
 
 function App() {
     const isAuthenticated = useSelector((state) => state.auth.loggedIn);
-    console.log(isAuthenticated);
 
     const PrivateRoute = ({ children, ...rest }) => {
         return (

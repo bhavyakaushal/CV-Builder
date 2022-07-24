@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { User, UserDocument } from "src/schemas/user.schema";
+import { User, UserDocument } from "../schemas/user.schema";
 import { RegisterUserDto } from "./dto/register-user.dto";
 import { comparePasswords, encodePassword } from "../utils/bcrypt";
 import { SigninUserDto } from "./dto/sign-in.dto";
 import { UserResponseObject } from "./interfaces/user.interface";
 import { AddUserSkillDto } from "./dto/add-skill.dto";
-import { Skill, SkillDocument } from "src/schemas/skill.schema";
+import { Skill, SkillDocument } from "../schemas/skill.schema";
 import { AddUserProjectDto } from "./dto/add-project.dto";
-import { Project, ProjectDocument } from "src/schemas/project.schema";
+import { Project, ProjectDocument } from "../schemas/project.schema";
 import { SearchUserSkillByNameDto } from "./dto/search-skill.dto";
 import { SearchUserProjectByTitleDto } from "./dto/search-project.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -80,7 +80,7 @@ export class UsersService {
           error: "Invalid user password",
         };
       }
-      const responseData = this.createResponseData(findUser);
+      const responseData = this.createUserLoginResponseData(findUser);
       return {
         success: true,
         responseData,
@@ -123,9 +123,14 @@ export class UsersService {
           error: "error in saving user's skills",
         };
       }
+
+      const updateUserWithSkillQuery =
+        this.createUpdateUserWithSkillQueryObject(
+          addUserSkillDto,
+          saveSkill.id
+        );
       const addSkillToUser = await this.userModel.updateOne(
-        { _id: addUserSkillDto.userId },
-        { $push: { skillId: saveSkill.id } }
+        updateUserWithSkillQuery
       );
       if (!addSkillToUser) {
         return {
@@ -199,10 +204,13 @@ export class UsersService {
           error: "error in saving user's project",
         };
       }
-
+      const updateUserWithProjectQuery =
+        this.createUpdateUserWithProjectQueryObject(
+          addUserProjectDto,
+          saveProject.id
+        );
       const addProjectToUser = await this.userModel.updateOne(
-        { _id: addUserProjectDto.userId },
-        { $push: { projectId: saveProject.id } }
+        updateUserWithProjectQuery
       );
       if (!addProjectToUser) {
         return {
@@ -298,7 +306,7 @@ export class UsersService {
     };
   }
 
-  createResponseData(userDetails: UserResponseObject) {
+  createUserLoginResponseData(userDetails: UserResponseObject) {
     return {
       id: userDetails._id,
       email: userDetails.email,
@@ -317,6 +325,26 @@ export class UsersService {
       description: addUserProjectDto.description,
       userId: addUserProjectDto.userId,
       skillId: skillIdArray,
+    };
+  }
+
+  createUpdateUserWithProjectQueryObject(
+    addUserProjectDto: AddUserProjectDto,
+    saveProjectId: string
+  ) {
+    return {
+      _id: addUserProjectDto.userId,
+      $push: { projectId: saveProjectId },
+    };
+  }
+
+  createUpdateUserWithSkillQueryObject(
+    addUserSkillDto: AddUserSkillDto,
+    skillId: string
+  ) {
+    return {
+      _id: addUserSkillDto.userId,
+      $push: { skillId: skillId },
     };
   }
 }

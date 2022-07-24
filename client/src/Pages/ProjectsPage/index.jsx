@@ -82,16 +82,30 @@ function ProjectsPage() {
 
     const getOptionsdata = () => {
         let data = [];
-        for (
-            var i = 0;
-            i < user_data_redux?.finalData?.projects.length && i < 5;
-            i++
-        ) {
-            data.push({
-                label: user_data_redux?.finalData?.projects[i].title,
-                value: user_data_redux?.finalData?.projects[i].title
-            });
+        if (user_data_redux.projects) {
+            for (
+                let i = 0;
+                i < user_data_redux?.projects.length && i < 5;
+                i++
+            ) {
+                data.push({
+                    label: user_data_redux?.projects[i]?.title,
+                    value: user_data_redux?.projects[i]?.title
+                });
+            }
+        } else {
+            for (
+                let i = 0;
+                i < user_data_redux?.finalData?.projects.length && i < 5;
+                i++
+            ) {
+                data.push({
+                    label: user_data_redux?.finalData?.projects[i]?.title,
+                    value: user_data_redux?.finalData?.projects[i]?.title
+                });
+            }
         }
+
         return data;
     };
 
@@ -108,7 +122,7 @@ function ProjectsPage() {
             handleClose();
         }
         dispatch(userActions.getUserProjects(login_user_data_redux.id));
-        if (user_data_redux?.finalData) setSearchOptions(getOptionsdata());
+        setSearchOptions(getOptionsdata());
         setSelectedOption(null);
         setProjectDesc("");
         setProjectTitle("");

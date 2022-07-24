@@ -102,9 +102,11 @@ const TemplateBuilder = ({ userProfile, skills, projects }) => {
                                                     CommonStyles.projectHeader
                                                 }
                                             >
+                                                {temp_projects.title}
+                                            </Text>
+                                            <Text>
                                                 {temp_projects.description}
                                             </Text>
-                                            <Text>{temp_projects.title}</Text>
                                         </InputBox>
                                     );
                                 })}
