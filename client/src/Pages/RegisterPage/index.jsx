@@ -20,7 +20,6 @@ function RegisterPage() {
     const [usernameText, setUsernameText] = React.useState("");
     const [passwordText, setPasswordText] = React.useState("");
     const [emailText, setEmailText] = React.useState("");
-    const [error, setError] = React.useState();
 
     const registerError_redux = useSelector((state) => state?.auth?.error);
 
@@ -77,15 +76,17 @@ function RegisterPage() {
         if (e.key === "Enter") submitForRegister();
     };
 
-    React.useEffect(() => {
-        setError("");
-    }, []);
     return (
         <div id="register-page">
             <div className="register-container">
                 <div className="h1 mb-2">Sign Up</div>
-                {registerError_redux?.msg && (
-                    <p className="text-danger">{registerError_redux.msg}</p>
+                {registerError_redux && (
+                    <p className="text-danger">
+                        ERROR - &nbsp;
+                        {registerError_redux.message
+                            ? registerError_redux.message
+                            : registerError_redux}
+                    </p>
                 )}
                 <div className="mt-2 d-flex flex-column">
                     <div className="full-input mt-4">
@@ -172,7 +173,6 @@ function RegisterPage() {
                         />
                     </div>
                 </div>
-                {error && <h5 className="text-danger">{error}</h5>}
                 <div className="m-l-lg-140 d-flex align-items-center">
                     <Button
                         className="mr-3"

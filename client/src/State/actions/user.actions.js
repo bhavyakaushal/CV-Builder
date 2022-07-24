@@ -36,11 +36,15 @@ function getUserProfile(userId) {
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -77,11 +81,15 @@ function updateUserProfile(contact, aboutme, email, userId) {
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -113,11 +121,15 @@ function addNewSkill(skill, rating, userId) {
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -151,11 +163,15 @@ function getUserSkills(userId) {
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -186,11 +202,15 @@ function searchUserSkill(skillName, userId) {
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -212,6 +232,7 @@ function getUserProjects(userId) {
             })
             .then(
                 (user) => {
+                    // dispatch(success(user));
                     if (
                         user.success &&
                         user.userProjects &&
@@ -220,25 +241,19 @@ function getUserProjects(userId) {
                         dispatch(success(user.userProjects));
                     } else {
                         dispatch(failure(user.error));
-                        // if (user?.statusCode === 400 || user === undefined) {
-                        //     if (user.message) {
-                        //         dispatch(failure(user.message[0]));
-                        //     } else {
-                        //         const final_error_obj = {
-                        //             msg: "Something went wrong, please try again."
-                        //         };
-                        //         dispatch(failure(final_error_obj));
-                        //     }
-                        // }
                     }
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -263,30 +278,23 @@ function addNewProjects(title, description, userId, skillName) {
             })
             .then(
                 (user) => {
-                    console.log("***********", user);
                     if (user.success) {
                         dispatch(success(true));
                     } else {
                         dispatch(failure(user.error));
-                        // if (user?.statusCode === 400 || user === undefined) {
-                        //     if (user.message) {
-                        //         dispatch(failure(user.message[0]));
-                        //     } else {
-                        //         const final_error_obj = {
-                        //             msg: "Something went wrong, please try again."
-                        //         };
-                        //         dispatch(failure(final_error_obj));
-                        //     }
-                        // }
                     }
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -333,11 +341,15 @@ function getSkillsAndProjects(userId) {
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );
@@ -355,34 +367,28 @@ function searchUserProjects(projectName, userId) {
     return (dispatch) => {
         userService
             .searchUserProjects({
-                projectName: projectName,
+                projectTitle: projectName,
                 userId: userId
             })
             .then(
                 (user) => {
-                    if (user.success && user.searchedSkill) {
-                        dispatch(success(user.searchedSkill));
+                    if (user.success && user.searchedProject) {
+                        dispatch(success(user.searchedProject));
                     } else {
-                        // if (user?.statusCode === 400 || user === undefined) {
-                        //     if (user.message) {
-                        //         dispatch(failure(user.message[0]));
-                        //     } else {
-                        //         const final_error_obj = {
-                        //             msg: "Something went wrong, please try again."
-                        //         };
-                        //         dispatch(failure(final_error_obj));
-                        //     }
-                        // }
                         dispatch(failure(user.error));
                     }
                 },
                 (error) => {
                     let error_obj = error.response;
-                    if (error_obj?.status === 404 || error_obj === undefined) {
-                        const final_error_obj = {
-                            msg: "Something went wrong, please try again."
-                        };
-                        dispatch(failure(final_error_obj));
+                    if (error_obj?.status === 400 || error_obj === undefined) {
+                        if (error_obj.data) {
+                            dispatch(failure(error_obj?.data));
+                        } else {
+                            const final_error_obj = {
+                                msg: "Something went wrong, please try again."
+                            };
+                            dispatch(failure(final_error_obj));
+                        }
                     }
                 }
             );

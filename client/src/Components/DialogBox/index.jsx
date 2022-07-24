@@ -124,7 +124,6 @@ const DialogBox = React.memo(
         const handleOnSubmitFunc = (e) => {
             if (e.type === "click" || e.code === "Enter") {
                 onSubmitFunc();
-                handleClose();
             }
         };
 

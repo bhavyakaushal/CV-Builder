@@ -156,8 +156,11 @@ function HomePage() {
                     </Button>
                 )}
             </div>
-            {error_redux?.msg && (
-                <p className="text-danger">{error_redux.msg}</p>
+            {error_redux && (
+                <p className="text-danger">
+                    ERROR - &nbsp;
+                    {error_redux.message ? error_redux.message : error_redux}
+                </p>
             )}
             <div className="form-content">
                 <div className="standard-input">

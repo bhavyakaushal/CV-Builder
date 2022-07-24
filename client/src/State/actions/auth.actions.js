@@ -22,7 +22,7 @@ function register(username, password, email) {
             .then(
                 (user) => {
                     if (
-                        user.success &&
+                        user.success === true &&
                         user.responseData &&
                         typeof user.responseData === "object"
                     ) {

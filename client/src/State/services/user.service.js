@@ -67,7 +67,7 @@ async function addNewProjects(props) {
     const response = await AxiosRequest({
         method: "post",
         url: `${config.host}/users/project`,
-        data: props
+        data: props.title
     });
     const data = response.data;
     return data;
@@ -86,7 +86,7 @@ async function searchUserProjects(props) {
     const response = await AxiosRequest({
         method: "post",
         url: `${config.host}/users/search-project`,
-        data: props.title
+        data: props
     });
     const data = response.data;
     return data;

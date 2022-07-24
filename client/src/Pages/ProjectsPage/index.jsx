@@ -30,7 +30,7 @@ function ProjectsPage() {
     const [projectDesc, setProjectDesc] = React.useState("");
     const [skillsData, setSkillsData] = React.useState("");
     const [searchOptions, setSearchOptions] = React.useState([]);
-
+    const [selectedOption, setSelectedOption] = React.useState(null);
     const user_data_redux = useSelector((state) => state?.user);
     const login_user_data_redux = useSelector((state) => state?.auth?.user);
     const error_action = useSelector((state) => state?.user?.error);
@@ -65,7 +65,6 @@ function ProjectsPage() {
                 skillName: skillsData
             })
         );
-        if (!error_action) handleClose();
     };
 
     const isSubmitBtnDisabled = React.useMemo(
@@ -74,9 +73,11 @@ function ProjectsPage() {
                 projectTitle &&
                 projectTitle.trim() !== "" &&
                 projectDesc &&
-                projectDesc.trim() !== ""
+                projectDesc.trim() !== "" &&
+                skillsData &&
+                skillsData.length !== 0
             ),
-        [projectTitle, projectDesc]
+        [projectTitle, projectDesc, skillsData]
     );
 
     const getOptionsdata = () => {
@@ -89,9 +90,19 @@ function ProjectsPage() {
         }
         return data;
     };
-    const [selectedOption, setSelectedOption] = React.useState(null);
 
     React.useEffect(() => {
+        if (user_data_redux.projects) setSearchOptions(getOptionsdata());
+        setSelectedOption(null);
+        dispatch(userActions.getUserProjects(login_user_data_redux.id));
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    React.useEffect(() => {
+        if (project_added_redux) {
+            handleClose();
+        }
         dispatch(userActions.getUserProjects(login_user_data_redux.id));
         if (user_data_redux.projects) setSearchOptions(getOptionsdata());
         setSelectedOption(null);
@@ -100,13 +111,6 @@ function ProjectsPage() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project_added_redux]);
-
-    React.useEffect(() => {
-        if (user_data_redux.projects) setSearchOptions(getOptionsdata());
-        setSelectedOption(null);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     React.useEffect(() => {
         if (selectedOption != null) {
@@ -120,6 +124,11 @@ function ProjectsPage() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedOption]);
+
+    React.useEffect(() => {
+        dispatch(userActions.getUserProjects(login_user_data_redux.id));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [error_action]);
 
     return (
         <main id="projects-page">
@@ -150,8 +159,13 @@ function ProjectsPage() {
                     maxWidth="md"
                 >
                     <div className="d-flex flex-column pl-4">
-                        {error_action?.msg && (
-                            <p className="text-danger">{error_action.msg}</p>
+                        {error_action && (
+                            <p className="text-danger">
+                                ERROR - &nbsp;
+                                {error_action.message
+                                    ? error_action.message
+                                    : error_action}
+                            </p>
                         )}
                         <div className="d-flex flex-column standard-input mb-4">
                             <label

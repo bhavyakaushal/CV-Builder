@@ -30,7 +30,7 @@ function SkillsPage() {
     const [skillText, setSkillText] = React.useState("");
     const [rating, setRating] = React.useState();
     const [searchOptions, setSearchOptions] = React.useState([]);
-
+    const error_action = useSelector((state) => state?.user?.error);
     const user_data_redux = useSelector((state) => state?.user);
     const login_user_data_redux = useSelector((state) => state?.auth?.user);
     const skill_added_redux = useSelector((state) => state?.user?.skillAdded);
@@ -111,6 +111,14 @@ function SkillsPage() {
     return (
         <main id="skills-page">
             <div className="d-flex align-items-center justify-content-between w-100">
+                {error_action && (
+                    <p className="text-danger">
+                        ERROR - &nbsp;
+                        {error_action.message
+                            ? error_action.message
+                            : error_action}
+                    </p>
+                )}
                 <div className="header-content d-flex align-items-center">
                     <SearchSVG className="ml-2" />
                     <Select

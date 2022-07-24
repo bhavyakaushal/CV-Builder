@@ -44,8 +44,8 @@ function LoginPage() {
         <div id="login-page">
             <div className="login-container">
                 <div className="h1 mb-5">Sign In</div>
-                {loginError_redux?.msg && (
-                    <p className="text-danger">{loginError_redux.msg}</p>
+                {loginError_redux && (
+                    <p className="text-danger">{loginError_redux}</p>
                 )}
                 <div className="mt-4 d-flex flex-column">
                     <div className="full-input mt-4">
