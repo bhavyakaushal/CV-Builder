@@ -93,7 +93,6 @@ function ProjectsPage() {
 
     React.useEffect(() => {
         dispatch(userActions.getUserProjects(login_user_data_redux.id));
-        console.log("--------------", user_data_redux.projects);
         if (user_data_redux.projects) setSearchOptions(getOptionsdata());
         setSelectedOption(null);
         setProjectDesc("");
@@ -111,12 +110,12 @@ function ProjectsPage() {
 
     React.useEffect(() => {
         if (selectedOption != null) {
-            // dispatch(
-            //     userActions.searchProjectSkill(
-            //         selectedOption.value,
-            //         login_user_data_redux.id
-            //     )
-            // );
+            dispatch(
+                userActions.searchUserProjects(
+                    selectedOption.value,
+                    login_user_data_redux.id
+                )
+            );
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -21,12 +21,22 @@ const add_skill_dto_1 = require("./dto/add-skill.dto");
 const add_project_dto_1 = require("./dto/add-project.dto");
 const search_skill_dto_1 = require("./dto/search-skill.dto");
 const search_project_dto_1 = require("./dto/search-project.dto");
+const update_user_dto_1 = require("./dto/update-user.dto");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
     async create(registerUserDto, response) {
         const res = await this.usersService.create(registerUserDto);
+        if (res) {
+            return response.status(200).json(Object.assign({}, res));
+        }
+        else {
+            throw new common_1.InternalServerErrorException();
+        }
+    }
+    async updateUserById(updateUserDto, response) {
+        const res = await this.usersService.updateUserById(updateUserDto);
         if (res) {
             return response.status(200).json(Object.assign({}, res));
         }
@@ -108,6 +118,7 @@ let UsersController = class UsersController {
     }
 };
 __decorate([
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     (0, common_1.Post)("/register"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
@@ -116,6 +127,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "create", null);
 __decorate([
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    (0, common_1.Put)(),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto, Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updateUserById", null);
+__decorate([
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     (0, common_1.Post)("/login"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
@@ -132,6 +153,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUserById", null);
 __decorate([
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     (0, common_1.Post)("/skill"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
@@ -148,6 +170,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getSkillByUserId", null);
 __decorate([
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     (0, common_1.Post)("/search-skill"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
@@ -156,6 +179,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "searchSkillByName", null);
 __decorate([
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     (0, common_1.Post)("/project"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
@@ -172,6 +196,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getProjectByUserId", null);
 __decorate([
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     (0, common_1.Post)("/search-project"),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),

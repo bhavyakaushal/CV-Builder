@@ -46,6 +46,23 @@ let UsersService = class UsersService {
             console.log(error);
         }
     }
+    async updateUserById(updateUserDto) {
+        try {
+            const updateUserResponse = await this.userModel.updateOne({ _id: updateUserDto.userId }, { $set: Object.assign({}, updateUserDto) });
+            if (!updateUserResponse) {
+                return {
+                    success: false,
+                    error: "error updating the user",
+                };
+            }
+            return {
+                success: true,
+            };
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
     async loginUser(signinUserDto) {
         try {
             const email = signinUserDto.email;
@@ -141,7 +158,33 @@ let UsersService = class UsersService {
     }
     async addUserProject(addUserProjectDto) {
         try {
-            const saveProject = await new this.projectModel(addUserProjectDto).save();
+            const id = addUserProjectDto.userId;
+            const userSkills = addUserProjectDto.skillName;
+            let userSkillsFromDB = [];
+            for (let i = 0; i < userSkills.length; i++) {
+                if (await this.skillModel.find({ id, skill: userSkills[i] })) {
+                    let userSkillFound = await this.skillModel.find({
+                        id,
+                        skill: userSkills[i],
+                    });
+                    if (userSkillFound.length > 0) {
+                        userSkillsFromDB.push(userSkillFound);
+                    }
+                    else {
+                        return {
+                            success: false,
+                            error: "skill not found",
+                        };
+                    }
+                }
+            }
+            const skillIdArray = [];
+            for (let i = 0; i < userSkillsFromDB.length; i++) {
+                var skillId = userSkillsFromDB[i][0]._id.toString();
+                skillIdArray.push(skillId);
+            }
+            const saveProjectQuery = this.createProjectSaveQueryObject(addUserProjectDto, skillIdArray);
+            const saveProject = await new this.projectModel(saveProjectQuery).save();
             if (!saveProject) {
                 return {
                     success: false,
@@ -165,7 +208,9 @@ let UsersService = class UsersService {
     }
     async getProjectByUserId(userId) {
         try {
-            const userProjects = await this.projectModel.find({ userId });
+            const userProjects = await this.projectModel
+                .find({ userId })
+                .populate("skillId");
             if (!userProjects) {
                 return {
                     success: false,
@@ -238,6 +283,14 @@ let UsersService = class UsersService {
             username: userDetails.username,
             contact: userDetails.contact,
             aboutme: userDetails.aboutme,
+        };
+    }
+    createProjectSaveQueryObject(addUserProjectDto, skillIdArray) {
+        return {
+            title: addUserProjectDto.title,
+            description: addUserProjectDto.description,
+            userId: addUserProjectDto.userId,
+            skillId: skillIdArray,
         };
     }
 };

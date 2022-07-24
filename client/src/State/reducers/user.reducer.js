@@ -17,7 +17,9 @@ export function user(state = initialState, action) {
         case userConstants.UPDATE_PROFILE_SUCCESS:
             return {
                 ...state,
-                updated: true
+                updated: true,
+                skillAdded: false,
+                projectAdded: false
             };
         case userConstants.ACTION_FAILURE:
             return {

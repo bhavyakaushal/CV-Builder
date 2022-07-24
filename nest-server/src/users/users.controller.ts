@@ -6,6 +6,9 @@ import {
   Param,
   Res,
   InternalServerErrorException,
+  Put,
+  UsePipes,
+  ValidationPipe,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { RegisterUserDto } from "./dto/register-user.dto";
@@ -14,11 +17,13 @@ import { AddUserSkillDto } from "./dto/add-skill.dto";
 import { AddUserProjectDto } from "./dto/add-project.dto";
 import { SearchUserSkillByNameDto } from "./dto/search-skill.dto";
 import { SearchUserProjectByTitleDto } from "./dto/search-project.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Controller("users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UsePipes(ValidationPipe)
   @Post("/register")
   async create(@Body() registerUserDto: RegisterUserDto, @Res() response) {
     const res = await this.usersService.create(registerUserDto);
@@ -29,6 +34,18 @@ export class UsersController {
     }
   }
 
+  @UsePipes(ValidationPipe)
+  @Put()
+  async updateUserById(@Body() updateUserDto: UpdateUserDto, @Res() response) {
+    const res = await this.usersService.updateUserById(updateUserDto);
+    if (res) {
+      return response.status(200).json({ ...res });
+    } else {
+      throw new InternalServerErrorException();
+    }
+  }
+
+  @UsePipes(ValidationPipe)
   @Post("/login")
   async loginUser(@Body() signinUserDto: SigninUserDto, @Res() response) {
     const res = await this.usersService.loginUser(signinUserDto);
@@ -49,6 +66,7 @@ export class UsersController {
     }
   }
 
+  @UsePipes(ValidationPipe)
   @Post("/skill")
   async addUserSkill(
     @Body() addUserSkillDto: AddUserSkillDto,
@@ -72,6 +90,7 @@ export class UsersController {
     }
   }
 
+  @UsePipes(ValidationPipe)
   @Post("/search-skill")
   async searchSkillByName(
     @Body() searchUserSkillByNameDto: SearchUserSkillByNameDto,
@@ -87,6 +106,7 @@ export class UsersController {
     }
   }
 
+  @UsePipes(ValidationPipe)
   @Post("/project")
   async addUserProject(
     @Body() addUserProjectDto: AddUserProjectDto,
@@ -110,6 +130,7 @@ export class UsersController {
     }
   }
 
+  @UsePipes(ValidationPipe)
   @Post("/search-project")
   async searchProjectByTitle(
     @Body() searchUserProjectByTitleDto: SearchUserProjectByTitleDto,

@@ -1,7 +1,14 @@
 import React from "react";
+import { saveAs } from "file-saver";
 
 /* React Router DOM */
 import { withRouter } from "react-router-dom";
+
+/* PDF Render */
+import { pdf } from "@react-pdf/renderer";
+
+/* Template */
+import DashboardTemplates from "../../template";
 
 /* Redux */
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +19,7 @@ import Avatar from "@mui/material/Avatar";
 
 /* Images/SVG */
 import { ReactComponent as DownloadSVG } from "../../Assets/SVG/download.svg";
+import { ReactComponent as ShareSVG } from "../../Assets/SVG/share.svg";
 
 /* Components */
 import SkillsCard from "../SkillsPage/Components/SkillsCard";
@@ -52,13 +60,40 @@ function ReportsPage() {
         }
     };
 
+    const generatePDF = async () => {
+        console.log(user_data_redux.finalData.projects);
+        const blob = await pdf(
+            <DashboardTemplates
+                userProfile={user_data_redux?.user}
+                skills={user_data_redux?.finalData.skills}
+                projects={user_data_redux?.finalData.projects}
+            />
+        ).toBlob();
+
+        return blob;
+    };
+
+    const downloadPDF = async () => {
+        const blob = await generatePDF();
+        const documentName = `${user_data_redux?.user?.username}_resume.pdf`;
+
+        saveAs(blob, documentName);
+    };
+
     return (
         <div id="reports-page">
             <div className=" d-flex flex-row justify-content-between align-items-center top_section">
                 <div className="L5 mb-3"> My Report </div>
-                <Button>
-                    <DownloadSVG className="mr-2" /> Download Report
-                </Button>
+                <div className="d-flex">
+                    <button className="outlined_btn mr-3">
+                        {" "}
+                        <ShareSVG className="mr-2" />
+                        Share Report
+                    </button>
+                    <Button onClick={downloadPDF} onKeyPress={downloadPDF}>
+                        <DownloadSVG className="mr-2" /> Download Report
+                    </Button>
+                </div>
             </div>
 
             {error_redux?.msg && (
@@ -70,48 +105,29 @@ function ReportsPage() {
                         <Avatar
                             sx={{
                                 bgcolor: "#ed1c3c",
-                                width: "70px",
-                                height: "70px",
-                                fontSize: "28px"
+                                width: "80px",
+                                height: "80px",
+                                fontSize: "30px"
                             }}
                         >
                             {getAvatarName()}
                         </Avatar>
-                        <div className="h1 text-capitalize ml-5">
-                            {usernameText}
+                        <div className="group-text">
+                            <div className="h1 text-capitalize">
+                                {usernameText}
+                            </div>
+                            <div className="L3">
+                                {user_data_redux?.user?.email ?? ""}
+                            </div>
+                            <div className="L3">
+                                {" "}
+                                {user_data_redux?.user?.contact ?? ""}
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="form-content">
-                    <div className="standard-input">
-                        <label className="L3" for="email">
-                            Email address
-                        </label>
-                        <input
-                            className="L4"
-                            type="email"
-                            name="email"
-                            value={user_data_redux?.user?.email ?? ""}
-                            placeholder="Enter your email"
-                            disabled={true}
-                            required
-                        ></input>
-                    </div>
-                    <div className="standard-input mt-4">
-                        <label className="L3" for="contact">
-                            Contact
-                        </label>
-                        <input
-                            className="L4"
-                            type="tel"
-                            name="contact"
-                            value={user_data_redux?.user?.contact ?? ""}
-                            placeholder="Edit your profile to enter your contact"
-                            disabled={true}
-                            required
-                        ></input>
-                    </div>
                     <div className="standard-input mt-4">
                         <label className="L3" for="aboutme">
                             About Me

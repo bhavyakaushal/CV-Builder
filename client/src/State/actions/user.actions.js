@@ -10,6 +10,7 @@ export const userActions = {
     addNewSkill,
     getUserSkills,
     searchUserSkill,
+    searchUserProjects,
     addNewProjects,
     getUserProjects,
     getSkillsAndProjects
@@ -53,13 +54,14 @@ function getUserProfile(userId) {
     }
 }
 
-function updateUserProfile(email, contact, aboutme) {
+function updateUserProfile(contact, aboutme, email, userId) {
     return (dispatch) => {
         userService
             .updateUserProfile({
                 contact: contact,
                 aboutme: aboutme,
-                email: email
+                email: email,
+                userId: userId
             })
             .then(
                 (user) => {
@@ -218,6 +220,16 @@ function getUserProjects(userId) {
                         dispatch(success(user.userProjects));
                     } else {
                         dispatch(failure(user.error));
+                        // if (user?.statusCode === 400 || user === undefined) {
+                        //     if (user.message) {
+                        //         dispatch(failure(user.message[0]));
+                        //     } else {
+                        //         const final_error_obj = {
+                        //             msg: "Something went wrong, please try again."
+                        //         };
+                        //         dispatch(failure(final_error_obj));
+                        //     }
+                        // }
                     }
                 },
                 (error) => {
@@ -243,7 +255,7 @@ function getUserProjects(userId) {
 function addNewProjects(title, description, userId, skillName) {
     return (dispatch) => {
         userService
-            .addNewSkill({
+            .addNewProjects({
                 title: title,
                 description: description,
                 userId: userId,
@@ -251,10 +263,21 @@ function addNewProjects(title, description, userId, skillName) {
             })
             .then(
                 (user) => {
+                    console.log("***********", user);
                     if (user.success) {
                         dispatch(success(true));
                     } else {
                         dispatch(failure(user.error));
+                        // if (user?.statusCode === 400 || user === undefined) {
+                        //     if (user.message) {
+                        //         dispatch(failure(user.message[0]));
+                        //     } else {
+                        //         const final_error_obj = {
+                        //             msg: "Something went wrong, please try again."
+                        //         };
+                        //         dispatch(failure(final_error_obj));
+                        //     }
+                        // }
                     }
                 },
                 (error) => {
@@ -322,6 +345,51 @@ function getSkillsAndProjects(userId) {
 
     function success(data) {
         return { type: userConstants.GET_FINAL_DATA, data };
+    }
+    function failure(error) {
+        return { type: userConstants.ACTION_FAILURE, error };
+    }
+}
+
+function searchUserProjects(projectName, userId) {
+    return (dispatch) => {
+        userService
+            .searchUserProjects({
+                projectName: projectName,
+                userId: userId
+            })
+            .then(
+                (user) => {
+                    if (user.success && user.searchedSkill) {
+                        dispatch(success(user.searchedSkill));
+                    } else {
+                        // if (user?.statusCode === 400 || user === undefined) {
+                        //     if (user.message) {
+                        //         dispatch(failure(user.message[0]));
+                        //     } else {
+                        //         const final_error_obj = {
+                        //             msg: "Something went wrong, please try again."
+                        //         };
+                        //         dispatch(failure(final_error_obj));
+                        //     }
+                        // }
+                        dispatch(failure(user.error));
+                    }
+                },
+                (error) => {
+                    let error_obj = error.response;
+                    if (error_obj?.status === 404 || error_obj === undefined) {
+                        const final_error_obj = {
+                            msg: "Something went wrong, please try again."
+                        };
+                        dispatch(failure(final_error_obj));
+                    }
+                }
+            );
+    };
+
+    function success(data) {
+        return { type: userConstants.SEARCH_USER_PROJECTS, data };
     }
     function failure(error) {
         return { type: userConstants.ACTION_FAILURE, error };

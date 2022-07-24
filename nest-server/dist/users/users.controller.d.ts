@@ -5,10 +5,12 @@ import { AddUserSkillDto } from "./dto/add-skill.dto";
 import { AddUserProjectDto } from "./dto/add-project.dto";
 import { SearchUserSkillByNameDto } from "./dto/search-skill.dto";
 import { SearchUserProjectByTitleDto } from "./dto/search-project.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
     create(registerUserDto: RegisterUserDto, response: any): Promise<any>;
+    updateUserById(updateUserDto: UpdateUserDto, response: any): Promise<any>;
     loginUser(signinUserDto: SigninUserDto, response: any): Promise<any>;
     getUserById(id: string, response: any): Promise<any>;
     addUserSkill(addUserSkillDto: AddUserSkillDto, response: any): Promise<any>;

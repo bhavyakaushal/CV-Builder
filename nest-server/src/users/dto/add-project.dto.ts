@@ -6,5 +6,5 @@ export class AddUserProjectDto {
   description: number;
   @IsNotEmpty()
   userId: string;
-  skillId: Array<any>;
+  skillName: Array<any>;
 }

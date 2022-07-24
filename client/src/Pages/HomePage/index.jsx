@@ -23,6 +23,7 @@ function HomePage() {
     const dispatch = useDispatch();
     const error_redux = useSelector((state) => state?.user?.error);
     const user_data_redux = useSelector((state) => state?.user?.user);
+    const updated_profile_redux = useSelector((state) => state?.user?.updated);
     const login_user_data_redux = useSelector((state) => state?.auth?.user);
     const [usernameText, setUsernameText] = React.useState(
         user_data_redux?.username ?? login_user_data_redux.username
@@ -76,7 +77,8 @@ function HomePage() {
                 userActions.updateUserProfile(
                     contactText,
                     aboutmeText,
-                    emailText
+                    emailText,
+                    login_user_data_redux.id
                 )
             );
         }
@@ -111,6 +113,12 @@ function HomePage() {
         setEmailText(user_data_redux?.email ?? "");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user_data_redux]);
+
+    React.useEffect(() => {
+        dispatch(userActions.getUserProfile(login_user_data_redux.id));
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [updated_profile_redux]);
 
     return (
         <main id="home-page">
