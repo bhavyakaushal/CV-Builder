@@ -38,21 +38,8 @@ function ReportsPage() {
         user_data_redux?.user?.username ?? login_user_data_redux.username
     );
 
-    React.useEffect(() => {
-        console.log("User id:", login_user_data_redux.id);
-        if (login_user_data_redux.id) {
-            dispatch(userActions.getUserProfile(login_user_data_redux.id));
-            dispatch(
-                userActions.getSkillsAndProjects(login_user_data_redux.id)
-            );
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     const getAvatarName = () => {
         let name = usernameText.split(" ");
-        console.log(name);
         if (name.length === 1) {
             return name[0][0].toUpperCase();
         } else {
@@ -61,7 +48,6 @@ function ReportsPage() {
     };
 
     const generatePDF = async () => {
-        console.log(user_data_redux.finalData.projects);
         const blob = await pdf(
             <DashboardTemplates
                 userProfile={user_data_redux?.user}
@@ -79,6 +65,17 @@ function ReportsPage() {
 
         saveAs(blob, documentName);
     };
+
+    React.useEffect(() => {
+        if (login_user_data_redux.id) {
+            dispatch(userActions.getUserProfile(login_user_data_redux.id));
+            dispatch(
+                userActions.getSkillsAndProjects(login_user_data_redux.id)
+            );
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div id="reports-page">

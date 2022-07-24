@@ -35,8 +35,6 @@
             &:focus {
                 outline: none;
                 background: lighten($pink, 45%);
-                // -webkit-box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.249508);
-                // box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.249508);
             }
 
             &:active {
@@ -67,7 +65,6 @@
         }
 
         .cards-container .card {
-            // to avoid column breaks
             -webkit-column-break-inside: avoid;
             page-break-inside: avoid;
             break-inside: avoid;

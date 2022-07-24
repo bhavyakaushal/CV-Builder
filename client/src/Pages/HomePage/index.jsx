@@ -102,6 +102,9 @@ function HomePage() {
             dispatch(userActions.getUserProfile(login_user_data_redux.id));
             dispatch(userActions.getUserSkills(login_user_data_redux.id));
             dispatch(userActions.getUserProjects(login_user_data_redux.id));
+            dispatch(
+                userActions.getSkillsAndProjects(login_user_data_redux.id)
+            );
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

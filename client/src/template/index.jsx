@@ -2,11 +2,8 @@ import React from "react";
 
 import { pdfjs } from "react-pdf";
 
-// /* Template theme */
-// import "./styles.scss";
-
 /* Template */
-import ResourceWiseReport from "./ResourceReport";
+import ResourceReport from "./ResourceReport";
 
 /* PDF Render */
 import { Font } from "@react-pdf/renderer";
@@ -32,9 +29,7 @@ Font.register({
 });
 
 function DashboardTemplate({ dashboardTemplateType, ...props }) {
-    // React.useLayoutEffect(() => {}, []);
-
-    return <ResourceWiseReport {...props} />;
+    return <ResourceReport {...props} />;
 }
 
 export default DashboardTemplate;

@@ -82,17 +82,21 @@ function ProjectsPage() {
 
     const getOptionsdata = () => {
         let data = [];
-        for (var i = 0; i < user_data_redux?.projects.length && i < 5; i++) {
+        for (
+            var i = 0;
+            i < user_data_redux?.finalData?.projects.length && i < 5;
+            i++
+        ) {
             data.push({
-                label: user_data_redux?.projects[i].title,
-                value: user_data_redux?.projects[i].title
+                label: user_data_redux?.finalData?.projects[i].title,
+                value: user_data_redux?.finalData?.projects[i].title
             });
         }
         return data;
     };
 
     React.useEffect(() => {
-        if (user_data_redux.projects) setSearchOptions(getOptionsdata());
+        if (user_data_redux?.finalData) setSearchOptions(getOptionsdata());
         setSelectedOption(null);
         dispatch(userActions.getUserProjects(login_user_data_redux.id));
 
@@ -104,7 +108,7 @@ function ProjectsPage() {
             handleClose();
         }
         dispatch(userActions.getUserProjects(login_user_data_redux.id));
-        if (user_data_redux.projects) setSearchOptions(getOptionsdata());
+        if (user_data_redux?.finalData) setSearchOptions(getOptionsdata());
         setSelectedOption(null);
         setProjectDesc("");
         setProjectTitle("");

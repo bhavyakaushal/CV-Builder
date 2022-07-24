@@ -1,11 +1,6 @@
 /* Constants */
 import { authConstants } from "../constants";
 
-/* Utils */
-// import { getSessionFromStorage } from "../../Utils";
-
-// let user_data = getSessionFromStorage();
-
 const initialState = {
     loggingIn: false,
     loggedIn: false,

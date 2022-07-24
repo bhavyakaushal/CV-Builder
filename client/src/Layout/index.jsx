@@ -9,9 +9,6 @@ import "../Scss/theme.scss";
 /* Redux */
 import { useSelector } from "react-redux";
 
-/* Utils */
-// import { history } from "../Utils/history";
-
 /* Lazy Loading Pages */
 const RegisterPage = React.lazy(() => import("../Pages/RegisterPage"));
 const LoginPage = React.lazy(() => import("../Pages/LoginPage"));

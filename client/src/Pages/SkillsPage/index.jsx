@@ -69,18 +69,19 @@ function SkillsPage() {
         let data = [];
         for (var i = 0; i < 5; i++) {
             data.push({
-                label: user_data_redux?.skills[i].skill,
-                value: user_data_redux?.skills[i].skill
+                label: user_data_redux?.finalData?.skills[i].skill,
+                value: user_data_redux?.finalData?.skills[i].skill
             });
         }
-        console.log(data);
         return data;
     };
     const [selectedOption, setSelectedOption] = React.useState(null);
 
     React.useEffect(() => {
         dispatch(userActions.getUserSkills(login_user_data_redux.id));
-        if (user_data_redux.skills) setSearchOptions(getOptionsdata());
+        dispatch(userActions.getSkillsAndProjects(login_user_data_redux.id));
+        if (user_data_redux?.finalData?.skills)
+            setSearchOptions(getOptionsdata());
         setSelectedOption(null);
         setRating(0);
         setSkillText("");
@@ -89,7 +90,9 @@ function SkillsPage() {
     }, [skill_added_redux]);
 
     React.useEffect(() => {
-        if (user_data_redux.skills) setSearchOptions(getOptionsdata());
+        dispatch(userActions.getSkillsAndProjects(login_user_data_redux.id));
+        if (user_data_redux?.finalData?.skills)
+            setSearchOptions(getOptionsdata());
         setSelectedOption(null);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

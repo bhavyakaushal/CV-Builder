@@ -3,16 +3,7 @@ import React from "react";
 /* Styles */
 import CommonStyles from "./pdf_styles";
 
-import {
-    Document,
-    Page,
-    Text,
-    View,
-    StyleSheet,
-    Image
-} from "@react-pdf/renderer";
-
-const Br = () => "\n";
+import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 
 const SubHeading = ({ children, extraStyles = [] }) => {
     return <View style={[styles.subHeading, ...extraStyles]}>{children}</View>;
@@ -68,7 +59,6 @@ const TemplateBuilder = ({ userProfile, skills, projects }) => {
                                             extraStyles={[
                                                 {
                                                     height: "60px",
-                                                    // flexBasis: "400px",
                                                     width: "275px",
                                                     marginRight: "8px"
                                                 }
@@ -106,16 +96,7 @@ const TemplateBuilder = ({ userProfile, skills, projects }) => {
                             {Array.isArray(projects) &&
                                 projects.map((temp_projects, i) => {
                                     return (
-                                        <InputBox
-                                        // extraStyles={[
-                                        //     {
-
-                                        //         // flexBasis: "400px",
-
-                                        //         marginRight: "8px"
-                                        //     }
-                                        // ]}
-                                        >
+                                        <InputBox>
                                             <Text
                                                 style={
                                                     CommonStyles.projectHeader
@@ -141,9 +122,6 @@ const styles = StyleSheet.create({
         fontWeight: 600,
         color: "#323338",
         marginBottom: "24px"
-    },
-    justifyBetween: {
-        justifyContent: "space-between"
     }
 });
 

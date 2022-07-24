@@ -232,7 +232,6 @@ function getUserProjects(userId) {
             })
             .then(
                 (user) => {
-                    // dispatch(success(user));
                     if (
                         user.success &&
                         user.userProjects &&
